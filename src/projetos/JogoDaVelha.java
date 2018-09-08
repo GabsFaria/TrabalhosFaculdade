@@ -2,6 +2,8 @@ package projetos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,12 +14,13 @@ public class JogoDaVelha {
 
 	private JFrame janela;
 	private JPanel painelPrincipal;
-	private int quantidade;
-	private int jogador = 0;
-	private int matriz[][] = new int[3][3];
+	protected int quantidade;
+	protected int jogador;
+	private List<AcaoJogada> lista = new ArrayList<AcaoJogada>();
 	private String ganhador;
-	private String jogador1;
-	private String jogador2;
+	
+	ImageIcon imagemX = new ImageIcon(getClass().getResource("X.png"));
+	ImageIcon imagemO = new ImageIcon(getClass().getResource("O.png"));
 
 	public static void main(String[] args) {
 		new JogoDaVelha().montaTela();
@@ -25,12 +28,12 @@ public class JogoDaVelha {
 
 	private void montaTela() {
 		quantidade = 1;
-		jogador = 1;
 		preparaJanela();
 		preparaPainelPrincipal();
+		mostraJanela();
 		preparaBotaoUm();
-		/*preparaBotaoDois();
-		preparaBotaoTres();
+		preparaBotaoDois();
+		/*preparaBotaoTres();
 		preparaBotaoQuatro();
 		preparaBotaoCinco();
 		preparaBotaoSeis();
@@ -38,11 +41,16 @@ public class JogoDaVelha {
 		preparaBotaoOito();
 		preparaBotaoNove();*/
 		preparaBotaoSair();
-		mostraJanela();
 	}
 	
-	public void acao() {
-		
+	public void processaJogada(int jogador, JButton button) {
+		if(jogador==0) {
+			button.setIcon(imagemX);
+			 jogador++;
+		} else {
+			button.setIcon(imagemO);
+			jogador--;
+		}
 	}
 
 	private void preparaJanela() {
@@ -53,28 +61,27 @@ public class JogoDaVelha {
 	private void preparaPainelPrincipal() {
 		painelPrincipal = new JPanel();
 		janela.add(painelPrincipal);
+		if(jogador==0) {
+			jogador++;
+		} else {
+			jogador--;
+		}
 	}
 
 	private void preparaBotaoUm() {
 		JButton botaoUm = new JButton();
-		ImageIcon imagem = new ImageIcon();
-		botaoUm.setSize(50, 50);
-		botaoUm.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(jogador==0) {
-					botaoUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("faculdade/imagens/X.png")));
-				} else {
-					botaoUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("faculdade/imagens/O.png")));
-				}
-			}
-		});
 		painelPrincipal.add(botaoUm);
+		botaoUm.setBounds(0, 0, 140, 140);
+		botaoUm.addActionListener(lista);
+		
 	}
 
 	private void preparaBotaoDois() {
-		// TODO Auto-generated method stub
-
+		JButton botaoDois = new JButton();
+		botaoDois.setBounds(150, 0, 140, 140);
+		AcaoJogada aj = new AcaoJogada();
+		botaoDois.addActionListener(aj);
+		painelPrincipal.add(botaoDois);
 	}
 
 	private void preparaBotaoTres() {
@@ -110,7 +117,18 @@ public class JogoDaVelha {
 	}
 
 	private void preparaBotaoSair() {
-		// TODO Auto-generated method stub
+		JButton botaoSair = new JButton("Sair");
+		botaoSair.setBounds(550, 550, 20, 20);
+		botaoSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
+		});
+		painelPrincipal.add(botaoSair);
+		
 
 	}
 
@@ -121,3 +139,4 @@ public class JogoDaVelha {
 	}
 
 }
+
