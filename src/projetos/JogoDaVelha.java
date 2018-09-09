@@ -1,9 +1,8 @@
 package projetos;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,13 +11,12 @@ import javax.swing.JPanel;
 
 public class JogoDaVelha {
 
+	private int[][] tabela = new int[3][3];
+	private JButton[] button = new JButton[9];
 	private JFrame janela;
 	private JPanel painelPrincipal;
-	protected int quantidade;
 	protected int jogador;
-	private List<AcaoJogada> lista = new ArrayList<AcaoJogada>();
-	private String ganhador;
-	
+
 	ImageIcon imagemX = new ImageIcon(getClass().getResource("X.png"));
 	ImageIcon imagemO = new ImageIcon(getClass().getResource("O.png"));
 
@@ -27,30 +25,20 @@ public class JogoDaVelha {
 	}
 
 	private void montaTela() {
-		quantidade = 1;
+		jogador = 1;
 		preparaJanela();
 		preparaPainelPrincipal();
 		mostraJanela();
 		preparaBotaoUm();
 		preparaBotaoDois();
-		/*preparaBotaoTres();
+		preparaBotaoTres();
 		preparaBotaoQuatro();
 		preparaBotaoCinco();
 		preparaBotaoSeis();
 		preparaBotaoSete();
 		preparaBotaoOito();
-		preparaBotaoNove();*/
+		preparaBotaoNove();
 		preparaBotaoSair();
-	}
-	
-	public void processaJogada(int jogador, JButton button) {
-		if(jogador==0) {
-			button.setIcon(imagemX);
-			 jogador++;
-		} else {
-			button.setIcon(imagemO);
-			jogador--;
-		}
 	}
 
 	private void preparaJanela() {
@@ -61,37 +49,69 @@ public class JogoDaVelha {
 	private void preparaPainelPrincipal() {
 		painelPrincipal = new JPanel();
 		janela.add(painelPrincipal);
-		if(jogador==0) {
-			jogador++;
-		} else {
-			jogador--;
-		}
+	}
+
+	private void mostraJanela() {
+		janela.pack();
+		janela.setSize(600, 600);
+		janela.setVisible(true);
 	}
 
 	private void preparaBotaoUm() {
-		JButton botaoUm = new JButton();
-		painelPrincipal.add(botaoUm);
-		botaoUm.setBounds(0, 0, 140, 140);
-		botaoUm.addActionListener(lista);
-		
+		button[0] = new JButton();
+		painelPrincipal.add(button[0]);
+		int x = 0, y = 0;
+		button[0].setBounds(10, 10, 120, 120);
+		button[0].addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(), x, y);
+			}
+		});
 	}
 
 	private void preparaBotaoDois() {
-		JButton botaoDois = new JButton();
-		botaoDois.setBounds(150, 0, 140, 140);
-		AcaoJogada aj = new AcaoJogada();
-		botaoDois.addActionListener(aj);
-		painelPrincipal.add(botaoDois);
+		button[1] = new JButton();
+		painelPrincipal.add(button[1]);
+		int x = 1, y= 0;
+		button[1].setBounds(140, 10, 120, 120);
+		button[1].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(), x, y);
+				
+			}
+		});
 	}
 
 	private void preparaBotaoTres() {
-		// TODO Auto-generated method stub
+		button[2] = new JButton();
+		painelPrincipal.add(button[2]);
+		int x = 2, y = 0;
+		button[2].setBounds(270, 10, 120, 120);
+		button[2].addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(), x, y);
+			}
+		});
 	}
 
 	private void preparaBotaoQuatro() {
-		// TODO Auto-generated method stub
+		button[3] = new JButton();
+		painelPrincipal.add(button[3]);
+		int x = 0, y = 1;
+		button[3].setBounds(10, 140, 120, 120);
+		button[3].addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(), x, y);
+			}
+		});
 	}
 
 	private void preparaBotaoCinco() {
@@ -105,38 +125,35 @@ public class JogoDaVelha {
 	}
 
 	private void preparaBotaoSete() {
+		// TODO Auto-generated method stub
 
 	}
 
 	private void preparaBotaoOito() {
+		// TODO Auto-generated method stub
 
 	}
 
 	private void preparaBotaoNove() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void processaJogada(JButton button, int x, int y) {
+		if (jogador == 1) {
+			tabela[x][y] = 1;
+			button.setIcon(imagemX);
+			jogador = 2;
+		} else {
+			tabela[x][y] = 2;
+			button.setIcon(imagemO);
+			jogador = 1;
+		}
 
 	}
 
 	private void preparaBotaoSair() {
-		JButton botaoSair = new JButton("Sair");
-		botaoSair.setBounds(550, 550, 20, 20);
-		botaoSair.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				
-			}
-		});
-		painelPrincipal.add(botaoSair);
-		
+		// TODO Auto-generated method stub
 
 	}
-
-	private void mostraJanela() {
-		janela.pack();
-		janela.setSize(600, 600);
-		janela.setVisible(true);
-	}
-
 }
-
