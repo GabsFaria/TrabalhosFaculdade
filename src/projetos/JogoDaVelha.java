@@ -232,28 +232,32 @@ public class JogoDaVelha {
 	private void checarJogada(int x) {
 		if(vitoria(x) == true) {
 			JOptionPane.showMessageDialog(null, ganhador+" Venceu! ", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+			fimDoJogo();
 		}
 		
 	}
 
+	private void fimDoJogo() {
+		for(int i=0; i<lista.size();i++) {
+			lista.get(i).setIcon(null);
+			lista.get(i).setBackground(null);
+		}
+		for(int i = 0; i<3; i++) {
+			for(int j = 0; j<3; j++) {
+				tabela[j][i]=0;
+			}
+		}
+	}
+
 	private boolean vitoria(int x) {
-			if(tabela[0][0]==1 && tabela[0][1]==1 && tabela[0][2]==1) {
-				lista.get(0).setBackground(new Color(050, 205, 050));
-				lista.get(3).setBackground(new Color(050, 205, 050));
-				lista.get(6).setBackground(new Color(050, 205, 050));
+			//Lógica de resultado para X
+			for(int i= 0; i<3; i++) {
+			if(tabela[i][0]==1 && tabela[i][1]==1 && tabela[i][2]==1) {
+				lista.get(0+i).setBackground(new Color(050, 205, 050));
+				lista.get(3+i).setBackground(new Color(050, 205, 050));
+				lista.get(6+i).setBackground(new Color(050, 205, 050));
 				return true;
 			}
-			if(tabela[1][0]==1 && tabela[1][1]==1 && tabela[1][2]==1) {
-				lista.get(1).setBackground(new Color(050, 205, 050));
-				lista.get(4).setBackground(new Color(050, 205, 050));
-				lista.get(7).setBackground(new Color(050, 205, 050));
-				return true;
-			}
-			if(tabela[2][0]==1 && tabela[2][1]==1 && tabela[2][2]==1) {
-				lista.get(2).setBackground(new Color(050, 205, 050));
-				lista.get(5).setBackground(new Color(050, 205, 050));
-				lista.get(8).setBackground(new Color(050, 205, 050));
-				return true;
 			}
 			if(tabela[0][0]==1 && tabela[1][0]==1 && tabela[2][0]==1) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
@@ -286,27 +290,16 @@ public class JogoDaVelha {
 				return true;
 			}
 			
+			//Lógica de resultado para O
 			
-			
-			
-			if(tabela[0][0]==2 && tabela[0][1]==2 && tabela[0][2]==2) {
-				lista.get(0).setBackground(new Color(050, 205, 050));
-				lista.get(3).setBackground(new Color(050, 205, 050));
-				lista.get(6).setBackground(new Color(050, 205, 050));
-				return true;
-			}
-			if(tabela[1][0]==2 && tabela[1][1]==2 && tabela[1][2]==2) {
-				lista.get(1).setBackground(new Color(050, 205, 050));
-				lista.get(4).setBackground(new Color(050, 205, 050));
-				lista.get(7).setBackground(new Color(050, 205, 050));
-				return true;
-			}
-			if(tabela[2][0]==2 && tabela[2][1]==2 && tabela[2][2]==2) {
-				lista.get(2).setBackground(new Color(050, 205, 050));
-				lista.get(5).setBackground(new Color(050, 205, 050));
-				lista.get(8).setBackground(new Color(050, 205, 050));
-				return true;
-			}
+			for(int i= 0; i<3; i++) {
+				if(tabela[i][0]==2 && tabela[i][1]==2 && tabela[i][2]==2) {
+					lista.get(0+i).setBackground(new Color(050, 205, 050));
+					lista.get(3+i).setBackground(new Color(050, 205, 050));
+					lista.get(6+i).setBackground(new Color(050, 205, 050));
+					return true;
+				}
+				}
 			if(tabela[0][0]==2 && tabela[1][0]==2 && tabela[2][0]==2) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(1).setBackground(new Color(050, 205, 050));
