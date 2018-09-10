@@ -1,6 +1,7 @@
 package projetos;
 
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 public class JogoDaVelha {
 
@@ -18,6 +19,9 @@ public class JogoDaVelha {
 	private ArrayList<JButton> lista = new ArrayList<JButton>();
 	private JFrame janela;
 	protected int jogador;
+	private String jogador1;
+	private String jogador2;
+	private String ganhador;
 
 	ImageIcon imagemX = new ImageIcon(getClass().getResource("X.png"));
 	ImageIcon imagemO = new ImageIcon(getClass().getResource("O.png"));
@@ -28,6 +32,7 @@ public class JogoDaVelha {
 
 	private void montaTela() {
 		jogador = 1;
+		setaJogadores();
 		preparaJanela();
 		mostraJanela();
 		preparaBotaoUm();
@@ -41,6 +46,11 @@ public class JogoDaVelha {
 		preparaBotaoNove();
 		preparaBotaoSair();
 		
+	}
+
+	private void setaJogadores() {
+		jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
+		jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
 	}
 
 	private void preparaJanela() {
@@ -207,12 +217,128 @@ public class JogoDaVelha {
 			tabela[x][y] = 1;
 			button.setIcon(imagemX);
 			jogador = 2;
+			ganhador = jogador1;
+			checarJogada(1);
 		} else {
 			tabela[x][y] = 2;
 			button.setIcon(imagemO);
 			jogador = 1;
+			ganhador = jogador2;
+			checarJogada(2);
 		}
 
+	}
+
+	private void checarJogada(int x) {
+		if(vitoria(x) == true) {
+			JOptionPane.showMessageDialog(null, ganhador+" Venceu! ", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	}
+
+	private boolean vitoria(int x) {
+			if(tabela[0][0]==1 && tabela[0][1]==1 && tabela[0][2]==1) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(3).setBackground(new Color(050, 205, 050));
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[1][0]==1 && tabela[1][1]==1 && tabela[1][2]==1) {
+				lista.get(1).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(7).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[2][0]==1 && tabela[2][1]==1 && tabela[2][2]==1) {
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				lista.get(5).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][0]==1 && tabela[1][0]==1 && tabela[2][0]==1) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(1).setBackground(new Color(050, 205, 050));
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][1]==1 && tabela[1][1]==1 && tabela[2][1]==1) {
+				lista.get(3).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(5).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][2]==1 && tabela[1][2]==1 && tabela[2][2]==1) {
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				lista.get(7).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][0]==1 && tabela[1][1]==1 && tabela[2][2]==1) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[2][0]==1 && tabela[1][1]==1 && tabela[0][2]==1) {
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			
+			
+			
+			
+			if(tabela[0][0]==2 && tabela[0][1]==2 && tabela[0][2]==2) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(3).setBackground(new Color(050, 205, 050));
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[1][0]==2 && tabela[1][1]==2 && tabela[1][2]==2) {
+				lista.get(1).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(7).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[2][0]==2 && tabela[2][1]==2 && tabela[2][2]==2) {
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				lista.get(5).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][0]==2 && tabela[1][0]==2 && tabela[2][0]==2) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(1).setBackground(new Color(050, 205, 050));
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][1]==2 && tabela[1][1]==2 && tabela[2][1]==2) {
+				lista.get(3).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(5).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][2]==2 && tabela[1][2]==2 && tabela[2][2]==2) {
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				lista.get(7).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[0][0]==2 && tabela[1][1]==2 && tabela[2][2]==2) {
+				lista.get(0).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(8).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			if(tabela[2][0]==2 && tabela[1][1]==2 && tabela[0][2]==2) {
+				lista.get(2).setBackground(new Color(050, 205, 050));
+				lista.get(4).setBackground(new Color(050, 205, 050));
+				lista.get(6).setBackground(new Color(050, 205, 050));
+				return true;
+			}
+			
+		return false;
 	}
 
 	private void preparaBotaoSair() {
