@@ -11,6 +11,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class JogoDaVelha {
@@ -22,6 +23,8 @@ public class JogoDaVelha {
 	private String jogador1;
 	private String jogador2;
 	private String ganhador;
+	private int pontosJogador1, pontosJogador2;
+	private JLabel pontos1, pontos2;
 
 	ImageIcon imagemX = new ImageIcon(getClass().getResource("X.png"));
 	ImageIcon imagemO = new ImageIcon(getClass().getResource("O.png"));
@@ -32,9 +35,12 @@ public class JogoDaVelha {
 
 	private void montaTela() {
 		jogador = 1;
+		pontosJogador1=0;
+		pontosJogador2=0;
 		setaJogadores();
 		preparaJanela();
 		mostraJanela();
+		mostraPontos();
 		preparaBotaoUm();
 		preparaBotaoDois();
 		preparaBotaoTres();
@@ -46,6 +52,18 @@ public class JogoDaVelha {
 		preparaBotaoNove();
 		preparaBotaoSair();
 		
+	}
+
+	private void mostraPontos() {
+		pontos1 = new JLabel();
+		pontos1.setText(jogador1+":\n"+pontosJogador1);
+		pontos1.setBounds(450, 0, 100, 100);
+		janela.add(pontos1);
+		
+		pontos2 = new JLabel();
+		pontos2.setText(jogador2+":\n"+pontosJogador2);
+		pontos2.setBounds(450, 110, 100, 100);
+		janela.add(pontos2);
 	}
 
 	private void setaJogadores() {
@@ -233,8 +251,16 @@ public class JogoDaVelha {
 		if(vitoria(x) == true) {
 			JOptionPane.showMessageDialog(null, ganhador+" Venceu! ", "Vitória", JOptionPane.INFORMATION_MESSAGE);
 			fimDoJogo();
-		}
+			imprimiPontos();
+					}
 		
+	}
+
+	private void imprimiPontos() {
+		pontos1 = null;
+		pontos2 = null;
+		mostraPontos();
+
 	}
 
 	private void fimDoJogo() {
@@ -256,6 +282,7 @@ public class JogoDaVelha {
 				lista.get(0+i).setBackground(new Color(050, 205, 050));
 				lista.get(3+i).setBackground(new Color(050, 205, 050));
 				lista.get(6+i).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			}
@@ -263,30 +290,35 @@ public class JogoDaVelha {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(1).setBackground(new Color(050, 205, 050));
 				lista.get(2).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			if(tabela[0][1]==1 && tabela[1][1]==1 && tabela[2][1]==1) {
 				lista.get(3).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(5).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			if(tabela[0][2]==1 && tabela[1][2]==1 && tabela[2][2]==1) {
 				lista.get(6).setBackground(new Color(050, 205, 050));
 				lista.get(7).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			if(tabela[0][0]==1 && tabela[1][1]==1 && tabela[2][2]==1) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			if(tabela[2][0]==1 && tabela[1][1]==1 && tabela[0][2]==1) {
 				lista.get(2).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(6).setBackground(new Color(050, 205, 050));
+				pontosJogador1++;
 				return true;
 			}
 			
@@ -297,6 +329,7 @@ public class JogoDaVelha {
 					lista.get(0+i).setBackground(new Color(050, 205, 050));
 					lista.get(3+i).setBackground(new Color(050, 205, 050));
 					lista.get(6+i).setBackground(new Color(050, 205, 050));
+					pontosJogador2++;
 					return true;
 				}
 				}
@@ -304,30 +337,35 @@ public class JogoDaVelha {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(1).setBackground(new Color(050, 205, 050));
 				lista.get(2).setBackground(new Color(050, 205, 050));
+				pontosJogador2++;
 				return true;
 			}
 			if(tabela[0][1]==2 && tabela[1][1]==2 && tabela[2][1]==2) {
 				lista.get(3).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(5).setBackground(new Color(050, 205, 050));
+				pontosJogador2++;
 				return true;
 			}
 			if(tabela[0][2]==2 && tabela[1][2]==2 && tabela[2][2]==2) {
 				lista.get(6).setBackground(new Color(050, 205, 050));
 				lista.get(7).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
+				pontosJogador2++;
 				return true;
 			}
 			if(tabela[0][0]==2 && tabela[1][1]==2 && tabela[2][2]==2) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
+				pontosJogador2++;
 				return true;
 			}
 			if(tabela[2][0]==2 && tabela[1][1]==2 && tabela[0][2]==2) {
 				lista.get(2).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(6).setBackground(new Color(050, 205, 050));
+				pontosJogador2++;
 				return true;
 			}
 			
