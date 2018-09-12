@@ -2,12 +2,10 @@ package projetos;
 
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,8 +18,8 @@ public class JogoDaVelha {
 	private ArrayList<JButton> lista = new ArrayList<JButton>();
 	private JFrame janela;
 	protected int jogador;
-	private String jogador1;
-	private String jogador2;
+	private String jogador1=null;
+	private String jogador2=null;
 	private String ganhador;
 	private int pontosJogador1, pontosJogador2;
 	private JLabel pontos1, pontos2;
@@ -54,27 +52,33 @@ public class JogoDaVelha {
 		
 	}
 
+
 	private void mostraPontos() {
 		pontos1 = new JLabel();
-		pontos1.setText(jogador1+":\n"+pontosJogador1);
-		pontos1.setBounds(450, 0, 100, 100);
+		pontos1.setText(jogador1+": \n"+pontosJogador1);
+		pontos1.setBounds(450, 10, 80, 20);
 		janela.add(pontos1);
 		
 		pontos2 = new JLabel();
-		pontos2.setText(jogador2+":\n"+pontosJogador2);
-		pontos2.setBounds(450, 110, 100, 100);
+		pontos2.setText(jogador2+": \n"+pontosJogador2);
+		pontos2.setBounds(450, 40, 80, 20);
 		janela.add(pontos2);
+		
 	}
 
 	private void setaJogadores() {
 		jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
+		if(jogador1==null) {
+			JOptionPane.showMessageDialog(null, "Você precisar escolher um nome para poder jogar!");
+			jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
+		}
 		jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
 	}
 
+
 	private void preparaJanela() {
 		janela = new JFrame("Jogo da Velha");
-		Container c = janela.getContentPane();
-		c.setLayout(new GroupLayout(c));
+		janela.setLayout(null);
 		
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -82,7 +86,7 @@ public class JogoDaVelha {
 
 	private void mostraJanela() {
 		janela.pack();
-		janela.setSize(600, 600);
+		janela.setSize(600, 450);
 		janela.setVisible(true);
 	}
 
@@ -237,12 +241,14 @@ public class JogoDaVelha {
 			jogador = 2;
 			ganhador = jogador1;
 			checarJogada(1);
+			velha();
 		} else {
 			tabela[x][y] = 2;
 			button.setIcon(imagemO);
 			jogador = 1;
 			ganhador = jogador2;
 			checarJogada(2);
+			velha();
 		}
 
 	}
@@ -257,10 +263,10 @@ public class JogoDaVelha {
 	}
 
 	private void imprimiPontos() {
-		pontos1 = null;
-		pontos2 = null;
-		mostraPontos();
-
+		pontos1.setText(null);
+		pontos1.setText(jogador1+": "+pontosJogador1);
+		pontos2.setText(null);
+		pontos2.setText(jogador2+": "+pontosJogador2);
 	}
 
 	private void fimDoJogo() {
@@ -282,7 +288,7 @@ public class JogoDaVelha {
 				lista.get(0+i).setBackground(new Color(050, 205, 050));
 				lista.get(3+i).setBackground(new Color(050, 205, 050));
 				lista.get(6+i).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			}
@@ -290,35 +296,35 @@ public class JogoDaVelha {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(1).setBackground(new Color(050, 205, 050));
 				lista.get(2).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			if(tabela[0][1]==1 && tabela[1][1]==1 && tabela[2][1]==1) {
 				lista.get(3).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(5).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			if(tabela[0][2]==1 && tabela[1][2]==1 && tabela[2][2]==1) {
 				lista.get(6).setBackground(new Color(050, 205, 050));
 				lista.get(7).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			if(tabela[0][0]==1 && tabela[1][1]==1 && tabela[2][2]==1) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			if(tabela[2][0]==1 && tabela[1][1]==1 && tabela[0][2]==1) {
 				lista.get(2).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(6).setBackground(new Color(050, 205, 050));
-				pontosJogador1++;
+				pontosJogador1+=1;
 				return true;
 			}
 			
@@ -329,7 +335,7 @@ public class JogoDaVelha {
 					lista.get(0+i).setBackground(new Color(050, 205, 050));
 					lista.get(3+i).setBackground(new Color(050, 205, 050));
 					lista.get(6+i).setBackground(new Color(050, 205, 050));
-					pontosJogador2++;
+					pontosJogador2+=1;
 					return true;
 				}
 				}
@@ -337,39 +343,47 @@ public class JogoDaVelha {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(1).setBackground(new Color(050, 205, 050));
 				lista.get(2).setBackground(new Color(050, 205, 050));
-				pontosJogador2++;
+				pontosJogador2+=1;
 				return true;
 			}
 			if(tabela[0][1]==2 && tabela[1][1]==2 && tabela[2][1]==2) {
 				lista.get(3).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(5).setBackground(new Color(050, 205, 050));
-				pontosJogador2++;
+				pontosJogador2+=1;
 				return true;
 			}
 			if(tabela[0][2]==2 && tabela[1][2]==2 && tabela[2][2]==2) {
 				lista.get(6).setBackground(new Color(050, 205, 050));
 				lista.get(7).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
-				pontosJogador2++;
+				pontosJogador2+=1;
 				return true;
 			}
 			if(tabela[0][0]==2 && tabela[1][1]==2 && tabela[2][2]==2) {
 				lista.get(0).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(8).setBackground(new Color(050, 205, 050));
-				pontosJogador2++;
+				pontosJogador2+=1;
 				return true;
 			}
 			if(tabela[2][0]==2 && tabela[1][1]==2 && tabela[0][2]==2) {
 				lista.get(2).setBackground(new Color(050, 205, 050));
 				lista.get(4).setBackground(new Color(050, 205, 050));
 				lista.get(6).setBackground(new Color(050, 205, 050));
-				pontosJogador2++;
+				pontosJogador2+=1;
 				return true;
-			}
+			}			
 			
 		return false;
+	}
+	
+	private void velha() {
+		if(tabela[0][0]!=0 && tabela[1][0] !=0 && tabela[2][0]!=0 && tabela[0][1]!=0 && tabela[1][1]!=0
+				&& tabela[2][1]!=0 && tabela[0][2]!=0 && tabela[1][2]!=0 && tabela[2][2]!=0) {
+			JOptionPane.showMessageDialog(null, "Deu velha!", "Empate", JOptionPane.INFORMATION_MESSAGE);
+			fimDoJogo();
+		}
 	}
 
 	private void preparaBotaoSair() {
