@@ -14,15 +14,15 @@ import javax.swing.JOptionPane;
 
 public class JogoDaVelha {
 
-	private int[][] tabela = new int[3][3];
-	private ArrayList<JButton> lista = new ArrayList<JButton>();
-	private JFrame janela;
-	protected int jogador;
-	private String jogador1=null;
-	private String jogador2=null;
-	private String ganhador;
-	private int pontosJogador1, pontosJogador2;
-	private JLabel pontos1, pontos2;
+	int[][] tabela = new int[3][3];
+	ArrayList<JButton> lista = new ArrayList<JButton>();
+	JFrame janela;
+	int jogador;
+	String jogador1=null;
+	String jogador2=null;
+	String ganhador;
+	int pontosJogador1, pontosJogador2;
+	JLabel pontos1, pontos2;
 
 	ImageIcon imagemX = new ImageIcon(getClass().getResource("X.png"));
 	ImageIcon imagemO = new ImageIcon(getClass().getResource("O.png"));
@@ -31,8 +31,8 @@ public class JogoDaVelha {
 		new JogoDaVelha().montaTela();
 	}
 
-	private void montaTela() {
-		jogador = 1;
+	public void montaTela() {
+		jogador=1;
 		pontosJogador1=0;
 		pontosJogador2=0;
 		setaJogadores();
@@ -53,7 +53,7 @@ public class JogoDaVelha {
 	}
 
 
-	private void mostraPontos() {
+	public void mostraPontos() {
 		pontos1 = new JLabel();
 		pontos1.setText(jogador1+": \n"+pontosJogador1);
 		pontos1.setBounds(450, 10, 80, 20);
@@ -66,17 +66,21 @@ public class JogoDaVelha {
 		
 	}
 
-	private void setaJogadores() {
+	public void setaJogadores() {
 		jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
-		if(jogador1==null) {
+		while(jogador1==null || jogador1.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Você precisar escolher um nome para poder jogar!");
 			jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
 		}
 		jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
+		while(jogador2==null || jogador2.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Você precisar escolher um nome para poder jogar!");
+			jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
+		}
 	}
 
 
-	private void preparaJanela() {
+	public void preparaJanela() {
 		janela = new JFrame("Jogo da Velha");
 		janela.setLayout(null);
 		
@@ -84,156 +88,12 @@ public class JogoDaVelha {
 		
 	}
 
-	private void mostraJanela() {
+	public void mostraJanela() {
 		janela.pack();
 		janela.setSize(600, 450);
 		janela.setVisible(true);
 	}
-
-	private void preparaBotaoUm() {
-		JButton botaoUm = new JButton();
-		lista.add(botaoUm);
-		janela.add(lista.get(0));
-		int x = 0, y = 0;
-		botaoUm.setBounds(10, 10, 120, 120);
-		lista.get(0).addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource(),x, y);
-			}
-		});
-		
-	}
-
-	private void preparaBotaoDois() {
-		JButton botaoDois = new JButton();
-		lista.add(botaoDois);
-		janela.add(lista.get(1));
-		int x = 1, y= 0;
-		botaoDois.setBounds(140, 10, 120, 120);
-		lista.get(1).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource(),x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoTres() {
-		JButton botaoTres = new JButton();
-		lista.add(botaoTres);
-		janela.add(lista.get(2));
-		int x = 2, y= 0;
-		botaoTres.setBounds(270, 10, 120, 120);
-		lista.get(2).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource(),x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoQuatro() {
-		JButton botaoQuatro = new JButton();
-		lista.add(botaoQuatro);
-		janela.add(lista.get(3));
-		int x = 0, y= 1;
-		botaoQuatro.setBounds(10, 140, 120, 120);
-		lista.get(3).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoCinco() {
-		JButton botaoCinco = new JButton();
-		lista.add(botaoCinco);
-		janela.add(lista.get(4));
-		int x = 1, y= 1;
-		botaoCinco.setBounds(140, 140, 120, 120);
-		lista.get(4).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoSeis() {
-		JButton botaoSeis = new JButton();
-		lista.add(botaoSeis);
-		janela.add(lista.get(5));
-		int x = 2, y= 1;
-		botaoSeis.setBounds(270, 140, 120, 120);
-		lista.get(5).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoSete() {
-		JButton botaoSete = new JButton();
-		lista.add(botaoSete);
-		janela.add(lista.get(6));
-		int x = 0, y= 2;
-		botaoSete.setBounds(10, 270, 120, 120);
-		lista.get(6).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoOito() {
-		JButton botaoOito = new JButton();
-		lista.add(botaoOito);
-		janela.add(lista.get(7));
-		int x = 1, y= 2;
-		botaoOito.setBounds(140, 270, 120, 120);
-		lista.get(7).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
-	private void preparaBotaoNove() {
-		JButton botaoNove = new JButton();
-		lista.add(botaoNove);
-		janela.add(lista.get(8));
-		int x = 2, y= 2;
-		botaoNove.setBounds(270, 270, 120, 120);
-		lista.get(8).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processaJogada((JButton) e.getSource() ,x, y);
-				
-			}
-		});
-	}
-
+	
 	public void processaJogada(JButton button, int x, int y) {
 		if (jogador == 1) {
 			tabela[x][y] = 1;
@@ -250,10 +110,157 @@ public class JogoDaVelha {
 			checarJogada(2);
 			velha();
 		}
+	
+	}
+	
 
+
+	public void preparaBotaoUm() {
+		JButton botaoUm = new JButton();
+		lista.add(botaoUm);
+		janela.add(lista.get(0));
+		int x = 0, y = 0;
+		botaoUm.setBounds(10, 10, 120, 120);
+		lista.get(0).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
 	}
 
-	private void checarJogada(int x) {
+	public void preparaBotaoDois() {
+		JButton botaoDois = new JButton();
+		lista.add(botaoDois);
+		janela.add(lista.get(1));
+		int x = 1, y= 0;
+		botaoDois.setBounds(140, 10, 120, 120);
+		lista.get(1).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoTres() {
+		JButton botaoTres = new JButton();
+		lista.add(botaoTres);
+		janela.add(lista.get(2));
+		int x = 2, y= 0;
+		botaoTres.setBounds(270, 10, 120, 120);
+		lista.get(2).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoQuatro() {
+		JButton botaoQuatro = new JButton();
+		lista.add(botaoQuatro);
+		janela.add(lista.get(3));
+		int x = 0, y= 1;
+		botaoQuatro.setBounds(10, 140, 120, 120);
+		lista.get(3).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoCinco() {
+		JButton botaoCinco = new JButton();
+		lista.add(botaoCinco);
+		janela.add(lista.get(4));
+		int x = 1, y= 1;
+		botaoCinco.setBounds(140, 140, 120, 120);
+		lista.get(4).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoSeis() {
+		JButton botaoSeis = new JButton();
+		lista.add(botaoSeis);
+		janela.add(lista.get(5));
+		int x = 2, y= 1;
+		botaoSeis.setBounds(270, 140, 120, 120);
+		lista.get(5).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoSete() {
+		JButton botaoSete = new JButton();
+		lista.add(botaoSete);
+		janela.add(lista.get(6));
+		int x = 0, y= 2;
+		botaoSete.setBounds(10, 270, 120, 120);
+		lista.get(6).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoOito() {
+		JButton botaoOito = new JButton();
+		lista.add(botaoOito);
+		janela.add(lista.get(7));
+		int x = 1, y= 2;
+		botaoOito.setBounds(140, 270, 120, 120);
+		lista.get(7).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	public void preparaBotaoNove() {
+		JButton botaoNove = new JButton();
+		lista.add(botaoNove);
+		janela.add(lista.get(8));
+		int x = 2, y= 2;
+		botaoNove.setBounds(270, 270, 120, 120);
+		lista.get(8).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaJogada((JButton) e.getSource(),x, y);
+				
+			}
+		});
+	}
+
+	
+	public void checarJogada(int x) {
 		if(vitoria(x) == true) {
 			JOptionPane.showMessageDialog(null, ganhador+" Venceu! ", "Vitória", JOptionPane.INFORMATION_MESSAGE);
 			fimDoJogo();
@@ -262,14 +269,14 @@ public class JogoDaVelha {
 		
 	}
 
-	private void imprimiPontos() {
+	public void imprimiPontos() {
 		pontos1.setText(null);
 		pontos1.setText(jogador1+": "+pontosJogador1);
 		pontos2.setText(null);
 		pontos2.setText(jogador2+": "+pontosJogador2);
 	}
 
-	private void fimDoJogo() {
+	public void fimDoJogo() {
 		for(int i=0; i<lista.size();i++) {
 			lista.get(i).setIcon(null);
 			lista.get(i).setBackground(null);
@@ -281,7 +288,7 @@ public class JogoDaVelha {
 		}
 	}
 
-	private boolean vitoria(int x) {
+	public boolean vitoria(int x) {
 			//Lógica de resultado para X
 			for(int i= 0; i<3; i++) {
 			if(tabela[i][0]==1 && tabela[i][1]==1 && tabela[i][2]==1) {
@@ -378,7 +385,7 @@ public class JogoDaVelha {
 		return false;
 	}
 	
-	private void velha() {
+	public void velha() {
 		if(tabela[0][0]!=0 && tabela[1][0] !=0 && tabela[2][0]!=0 && tabela[0][1]!=0 && tabela[1][1]!=0
 				&& tabela[2][1]!=0 && tabela[0][2]!=0 && tabela[1][2]!=0 && tabela[2][2]!=0) {
 			JOptionPane.showMessageDialog(null, "Deu velha!", "Empate", JOptionPane.INFORMATION_MESSAGE);
