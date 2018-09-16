@@ -47,7 +47,7 @@ public class JogoDaVelha {
 		preparaBotaoSete();
 		preparaBotaoOito();
 		preparaBotaoNove();
-		preparaBotaoSair();
+		preparaBotaoReset();
 
 	}
 
@@ -67,14 +67,13 @@ public class JogoDaVelha {
 	public void setaJogadores() {
 		jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
 		while (jogador1 == null || jogador1.isEmpty()) {
-//			JOptionPane.showMessageDialog(null, "Você precisar escolher um nome para poder jogar!");
-//			jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
+			JOptionPane.showMessageDialog(null, "VocÃª precisar escolher um nome para poder jogar!");
 			System.exit(0);
 		}
 		jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
 		while (jogador2 == null || jogador2.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Você precisar escolher um nome para poder jogar!");
-			jogador2 = JOptionPane.showInputDialog("Digite o nome do jogador 2(O):");
+			JOptionPane.showMessageDialog(null, "VocÃª precisar escolher um nome para poder jogar!");
+			System.exit(0);
 		}
 	}
 
@@ -189,7 +188,7 @@ public class JogoDaVelha {
 
 	public void checarJogada(int x) {
 		if (checaVitoria(x)) {
-			JOptionPane.showMessageDialog(null, ganhador + " Venceu! ", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, ganhador + " Venceu! ", "VitÃ³ria", JOptionPane.INFORMATION_MESSAGE);
 			if (x == 1) {
 				pontosJogador1++;
 			} else {
@@ -233,7 +232,8 @@ public class JogoDaVelha {
 			if (tabela[i][0] == codigoJogador && tabela[i][1] == codigoJogador && tabela[i][2] == codigoJogador) {
 				setButtonBackground(new int[] { 0 + i, 3 + i, 6 + i });
 				return true;
-			}
+			}	
+
 		}
 		if (tabela[0][0] == codigoJogador && tabela[1][0] == codigoJogador && tabela[2][0] == codigoJogador) {
 			setButtonBackground(new int[] { 0, 1, 2 });
@@ -267,8 +267,24 @@ public class JogoDaVelha {
 		}
 	}
 
-	private void preparaBotaoSair() {
-		// TODO Auto-generated method stub
+	private void preparaBotaoReset() {
+		JButton botaoReset = new JButton("Alterar Jogadores");
+		botaoReset.setBounds(420, 350, 150, 40);
+		janela.add(botaoReset);
+		botaoReset.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setaJogadores();
+				reinciaPontos();
+				imprimiPontos();
+			}
+
+			private void reinciaPontos() {
+				pontosJogador1=0;
+				pontosJogador2=0;
+			}
+		});
 
 	}
 }
