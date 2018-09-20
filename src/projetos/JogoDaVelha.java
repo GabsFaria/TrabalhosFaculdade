@@ -54,15 +54,16 @@ public class JogoDaVelha {
 	public void mostraPontos() {
 		pontos1 = new JLabel();
 		pontos1.setText(jogador1 + ": \n" + pontosJogador1);
-		pontos1.setBounds(450, 10, 80, 20);
+		pontos1.setBounds(400, 20, 180, 20);
 		janela.add(pontos1);
 
 		pontos2 = new JLabel();
 		pontos2.setText(jogador2 + ": \n" + pontosJogador2);
-		pontos2.setBounds(450, 40, 80, 20);
+		pontos2.setBounds(400, 50, 180, 20);
 		janela.add(pontos2);
 
 	}
+	
 
 	public void setaJogadores() {
 		jogador1 = JOptionPane.showInputDialog("Digite o nome do jogador 1(X):");
