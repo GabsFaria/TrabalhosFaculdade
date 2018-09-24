@@ -45,6 +45,8 @@ public class Calculadora {
 		montaBotaoMultiplicacao();
 		montaBotaoDivisao();
 		montaBotaoBackspace();
+		montaBotaoCE();
+		montaBotaoC();
 		
 	}
 	
@@ -53,14 +55,14 @@ public class Calculadora {
 		visor.setText(lastButton);
 		visor.setBounds(20, 70, 220, 30);
 		visor.setHorizontalAlignment(JTextField.RIGHT);;
-		visor.setVisible(true);
+		visor.setEnabled(true);
 		janela.add(visor);
 		
 		visorSuperior = new JTextField();
 		visorSuperior.setText(conta);
 		visorSuperior.setBounds(20, 40, 220, 30);
 		visorSuperior.setHorizontalAlignment(JTextField.RIGHT);;
-		visorSuperior.setVisible(true);
+		visorSuperior.setEnabled(true);
 		janela.add(visorSuperior);
 	}
 
@@ -203,7 +205,7 @@ public class Calculadora {
 	public void montaBotaoBackspace() {
 		button.add( new JButton());
 		button.get(15).setIcon(backspace);
-		button.get(15).setBounds(20, 134, 44, 44);
+		button.get(15).setBounds(20, 154, 50, 30);
 		janela.add(button.get(15));
 		button.get(15).addActionListener(new ActionListener() {
 			
@@ -223,8 +225,35 @@ public class Calculadora {
 	
 	public void montaBotaoCE() {
 		button.add( new JButton("CE"));
-		button.get(16).setBounds(74, 134, 44, 44);
-		
+		button.get(16).setBounds(74, 154, 50, 30);
+		janela.add(button.get(16));
+		button.get(16).addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				visor.setText(null);
+				lastButton="";
+				visor.setText(lastButton);
+			}
+		});
+	}
+	
+	public void montaBotaoC() {
+		button.add( new JButton("C"));
+		button.get(17).setBounds(128, 154, 50, 30);
+		janela.add(button.get(17));
+		button.get(17).addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				visorSuperior.setText(null);
+				conta="";
+				visor.setText(conta);
+				visor.setText(null);
+				lastButton="";
+				visor.setText(lastButton);
+			}
+		});
 	}
 
 
