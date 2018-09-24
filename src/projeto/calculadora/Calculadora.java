@@ -5,16 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class Calculadora {
 	
 	private JFrame janela;
 	private ArrayList<JButton> button = new ArrayList<JButton>();
-	private String conta;
-	private JLabel mostrador;
+	private String conta, lastButton;
+	private JTextField visor, visorSuperior;
+	private int separacao;
+	
+	ImageIcon backspace = new ImageIcon(getClass().getResource("backspace.png"));
 	
 	public static void main(String[] args) {
 		new Calculadora().mostraJanela();
@@ -22,8 +26,9 @@ public class Calculadora {
 	
 	public void mostraJanela() {
 		conta="";
+		lastButton="";
 		montaJanela();
-		montaMostrador();
+		montaVisor();
 		montaBotaoZero();
 		montaBotaoUm();
 		montaBotaoDois();
@@ -39,27 +44,55 @@ public class Calculadora {
 		montaBotaoSubtracao();
 		montaBotaoMultiplicacao();
 		montaBotaoDivisao();
+		montaBotaoBackspace();
 		
 	}
 	
-	private void montaMostrador() {
-		mostrador = new JLabel();
-		mostrador.setText(conta);
-		mostrador.setBounds(20, 50, 220, 80);
-		janela.add(mostrador);
+	private void montaVisor() {
+		visor = new JTextField();
+		visor.setText(lastButton);
+		visor.setBounds(20, 70, 220, 30);
+		visor.setHorizontalAlignment(JTextField.RIGHT);;
+		visor.setVisible(true);
+		janela.add(visor);
+		
+		visorSuperior = new JTextField();
+		visorSuperior.setText(conta);
+		visorSuperior.setBounds(20, 40, 220, 30);
+		visorSuperior.setHorizontalAlignment(JTextField.RIGHT);;
+		visorSuperior.setVisible(true);
+		janela.add(visorSuperior);
 	}
 
 	public void acaoBotao(JButton b, String x){
 		janela.add(b);
+		if((x=="+") || (x=="-") || (x=="*") || (x=="/") ) {
+			separacao++;
+		}
+		if(separacao==1) {
 		b.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mostrador.setText(null);
-				conta+=x;
-				mostrador.setText(conta);
-			}
-		});
+					visorSuperior.setText(null);
+					conta+= lastButton;
+					conta+=x;
+					visorSuperior.setText(conta);
+					separacao=0;
+					visor.setText(null);
+					lastButton="";
+					visor.setText(lastButton);
+				}
+			});
+		} else {
+			b.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						visor.setText(null);
+						lastButton+=x;
+						visor.setText(lastButton);
+					}
+				});
+		}
 	}
 
 	public void montaBotaoZero() {
@@ -166,6 +199,34 @@ public class Calculadora {
 		String x= "/";
 		acaoBotao(button.get(14), x);
 	}
+	
+	public void montaBotaoBackspace() {
+		button.add( new JButton());
+		button.get(15).setIcon(backspace);
+		button.get(15).setBounds(20, 134, 44, 44);
+		janela.add(button.get(15));
+		button.get(15).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(lastButton.length()==0) {
+					
+				} else {
+				lastButton = lastButton.substring(0, lastButton.length()-1);
+				visor.setText(null);
+				visor.setText(lastButton);
+				}
+			}
+		});
+		
+	}
+	
+	public void montaBotaoCE() {
+		button.add( new JButton("CE"));
+		button.get(16).setBounds(74, 134, 44, 44);
+		
+	}
+
 
 	
 	public void montaJanela() {
