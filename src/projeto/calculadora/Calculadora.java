@@ -16,9 +16,10 @@ public class Calculadora {
 	private ArrayList<JButton> button = new ArrayList<JButton>();
 	private String conta, lastButton;
 	private JTextField visor, visorSuperior;
-	private int separacao;
+	private int separacao,auxInt = 0;;
 	
 	ImageIcon backspace = new ImageIcon(getClass().getResource("backspace.png"));
+	ImageIcon raiz = new ImageIcon(getClass().getResource("raiz.png"));
 	
 	public static void main(String[] args) {
 		new Calculadora().mostraJanela();
@@ -47,6 +48,9 @@ public class Calculadora {
 		montaBotaoBackspace();
 		montaBotaoCE();
 		montaBotaoC();
+		montaBotaoMudancaDeSinal();
+		montaBotaoRaizQuadrada();
+		montaBotaoPorcentagem();
 		
 	}
 	
@@ -255,6 +259,70 @@ public class Calculadora {
 			}
 		});
 	}
+	
+	public void montaBotaoMudancaDeSinal() {
+		button.add( new JButton("+/-"));
+		button.get(18).setBounds(182, 154, 50, 30);
+		janela.add(button.get(18));
+		button.get(18).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String aux ="";
+				aux+=lastButton;
+				if(lastButton=="0") {
+					
+				} else {
+					if(auxInt==0) {
+						visor.setText(null);
+						lastButton="";
+						lastButton="-"+aux;
+						visor.setText(lastButton);
+						auxInt=1;
+					} else {
+						visor.setText(null);
+						lastButton="";
+						aux = aux.replace("-", "");
+						lastButton=aux;
+						visor.setText(lastButton);
+						auxInt=0;
+					}
+				}
+				
+			}
+		});
+	}
+	
+	public void montaBotaoRaizQuadrada() {
+		button.add( new JButton());
+		button.get(19).setIcon(raiz);
+		button.get(19).setBounds(237, 154, 50, 30);
+		janela.add(button.get(19));
+		button.get(19).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double raizQuadrada = Math.sqrt(Double.parseDouble(lastButton));
+				visor.setText(null);
+				lastButton="";
+				lastButton=String.valueOf(raizQuadrada);
+				visor.setText(lastButton);
+			}
+		});
+	}
+	
+	public void montaBotaoPorcentagem() {
+		button.add( new JButton());
+		button.get(20).setBounds(237, 188, 44, 44);
+		janela.add(button.get(20));
+	}
+	
+	public void montaBotaoDivisaoBinaria() {
+		button.add( new JButton("/"));
+		button.get(14).setBounds(182, 188, 44, 44);
+		String x= "/";
+		acaoBotao(button.get(14), x);
+	}
 
 
 	
@@ -263,7 +331,7 @@ public class Calculadora {
 		janela.setLayout(null);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.pack();
-		janela.setSize(300,450);
+		janela.setSize(350,450);
 		janela.setVisible(true);	
 	}
 
