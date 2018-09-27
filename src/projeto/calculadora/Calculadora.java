@@ -315,6 +315,7 @@ public class Calculadora {
 				visor.setText(null);
 				lastButton="";
 				visor.setText(lastButton);
+				separacao=0;
 			}
 		});
 	}
