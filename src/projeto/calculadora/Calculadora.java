@@ -374,12 +374,27 @@ public class Calculadora {
 		button.add( new JButton("%"));
 		button.get(20).setBounds(257, 188, 55, 30);
 		janela.add(button.get(20));
+		//the button does not work 
 	}
 	
 	public void montaBotaoDivisaoBinaria() {
 		button.add( new JButton("1/x"));
 		button.get(21).setBounds(257, 222, 55, 30);
 		janela.add(button.get(21));
+		button.get(21).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String binario ="1/";
+				binario+=lastButton;
+				resultado(binario);
+				conta=lastButton;
+				visorSuperior.setText(conta);
+				lastButton="";
+				visor.setText(null);
+				visor.setText(lastButton);
+			}
+		});
 	}
 	
 	public void montaBotaoResultado() {
